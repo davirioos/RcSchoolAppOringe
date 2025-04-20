@@ -2,7 +2,6 @@ import { View, Text, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useAuth } from '../../contexts/AuthContext';
 import { style } from './styles';
 import OptionList from '../../components/optionsList';
 import ProgressoAnimado from '../../components/barraProgress';
@@ -13,7 +12,6 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'H
 
 export default function Registration() {
   const [disabled, setDisabled] = useState(false);
-  const { updateAnswers } = useAuth();
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const teste = [
     'Desenvolvimento Web do Básico ao Avançado',
@@ -25,7 +23,6 @@ export default function Registration() {
   const registrationCurso = (curso: string) => {
     if (disabled) return; // Evita múltiplos cliques
     setDisabled(true); // Desativa o botão
-    updateAnswers({ curso: curso });
     navigation.navigate('Wheredidyoumeet');
     setTimeout(() => {
       setDisabled(false);

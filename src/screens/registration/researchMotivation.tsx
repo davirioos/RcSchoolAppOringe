@@ -1,10 +1,8 @@
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { style } from './styles';
-import { useAuth } from '../../contexts/AuthContext';
-
 import OptionList from '../../components/optionsList';
 import ProgressoAnimado from '../../components/barraProgress';
 import { RootStackParamList } from '../../routes/authRoutes';
@@ -13,7 +11,6 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'H
 
 export default function ResearchMotivation() {
   const [disabled, setDisabled] = useState(false);
-  const { updateAnswers } = useAuth();
 
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const teste = [
@@ -27,7 +24,6 @@ export default function ResearchMotivation() {
   const registrationSearch = (motivo: string) => {
     if (disabled) return;
     setDisabled(true);
-    updateAnswers({ motivo: motivo });
     navigation.navigate('DailyObjectives');
     setTimeout(() => {
       setDisabled(false);

@@ -2,7 +2,6 @@ import { View, Text, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useAuth } from '../../contexts/AuthContext';
 import { style } from './styles';
 import OptionList from '../../components/optionsList';
 import ProgressoAnimado from '../../components/barraProgress';
@@ -12,7 +11,6 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'H
 
 export default function DailyObjectives() {
   const [disabled, setDisabled] = useState(false);
-  const { updateAnswers } = useAuth();
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const teste = [
     '5 minutos / dia',
@@ -25,7 +23,6 @@ export default function DailyObjectives() {
   const registrationTime = (tempo: string) => {
     if (disabled) return;
     setDisabled(true);
-    updateAnswers({ tempo: tempo });
     navigation.navigate('UserRegistration');
     setTimeout(() => {
       setDisabled(false);

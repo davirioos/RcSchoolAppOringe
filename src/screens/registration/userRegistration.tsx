@@ -8,9 +8,6 @@ import ProgressoAnimado from '../../components/barraProgress';
 import { RootStackParamList } from '../../routes/authRoutes';
 import { InputPrincipal } from '../../components/input';
 import { Button } from '../../components/button';
-import { auth, db, createUserWithEmailAndPassword } from '../../config/firebase'; // Importando a função corretamente
-
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore'; // Firestore modular
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -26,33 +23,7 @@ export default function UserRegistration() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const registrationSearch = async (data: any) => {
-    if (disabled) return;
-    setDisabled(true);
-
-    const { users, email, password } = data;
-
-    try {
-      // Criação de usuário com e-mail e senha no Firebase Auth
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password); // Usando a função importada
-      const uid = userCredential.user.uid;
-
-      // Salva os dados adicionais no Firestore
-      const userRef = doc(db, 'users', uid); // Referência para o documento do usuário
-      await setDoc(userRef, {
-        uid,
-        email,
-        apelido: users,
-        createdAt: serverTimestamp(), // Usando o timestamp do Firestore
-      });
-
-      // Redireciona para a tela principal
-      navigation.navigate('HomeScreenDirector');
-    } catch (error: any) {
-      console.error('Erro ao registrar usuário:', error);
-      Alert.alert('Erro no cadastro', error.message);
-    } finally {
-      setDisabled(false);
-    }
+    navigation.navigate('HomeScreenDirector');
   };
 
   return (

@@ -2,8 +2,6 @@ import { View, Text, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useAuth } from '../../contexts/AuthContext';
-
 import { style } from './styles';
 import OptionList from '../../components/optionsList';
 import ProgressoAnimado from '../../components/barraProgress';
@@ -13,7 +11,6 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'H
 
 export default function Wheredidyoumeet() {
   const [disabled, setDisabled] = useState(false);
-  const { updateAnswers } = useAuth();
 
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const teste = ['Youtube', 'Tiktok', 'Instagram', 'Facebook', 'Play Story', 'Indicação'];
@@ -21,7 +18,6 @@ export default function Wheredidyoumeet() {
   const registrationSearch = (ondeConheceu: string) => {
     if (disabled) return;
     setDisabled(true);
-    updateAnswers({ ondeConheceu: ondeConheceu });
     navigation.navigate('ResearchMotivation');
     setTimeout(() => {
       setDisabled(false);
