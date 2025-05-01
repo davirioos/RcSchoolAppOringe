@@ -2,6 +2,7 @@ import { View, Text } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useRegister } from '../../contexts/RegisterContext';
 import { style } from './styles';
 import OptionList from '../../components/optionsList';
 import ProgressoAnimado from '../../components/barraProgress';
@@ -11,8 +12,9 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'H
 
 export default function ResearchMotivation() {
   const [disabled, setDisabled] = useState(false);
-
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { setRegisterData } = useRegister();
+
   const teste = [
     'Conseguir um emprego',
     'Melhorar habilidades',
@@ -21,9 +23,10 @@ export default function ResearchMotivation() {
     'Outros',
   ];
 
-  const registrationSearch = (motivo: string) => {
+  const registrationSearch = (option: string) => {
     if (disabled) return;
     setDisabled(true);
+    setRegisterData({ motivo: option });
     navigation.navigate('DailyObjectives');
     setTimeout(() => {
       setDisabled(false);

@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Boldonse-Regular.ttf",
+      "sha1": "4cbe9b11f0db000b499ee91b154564c36495fcb8"
+    },
+    {
+      "path": "src/assets/fonts/Roboto-Black.ttf",
+      "sha1": "9eb4f9d1aaceb455483d15ce81fd6dcb1fbdb062"
+    },
+    {
+      "path": "src/assets/fonts/Roboto-Bold.ttf",
+      "sha1": "d313ab2c45756bf4e972647f5b2ad691ad250990"
+    },
+    {
+      "path": "src/assets/fonts/Roboto-Light.ttf",
+      "sha1": "7d0421de4e1398fb9087378a9ccc9297bdbc84b9"
+    },
+    {
+      "path": "src/assets/fonts/Roboto-Medium.ttf",
+      "sha1": "01d4ccbdf1ba0a8e14497521686e1246f8dc57c4"
+    },
+    {
+      "path": "src/assets/fonts/Super-Cottage.ttf",
+      "sha1": "42cdb00f511e0cce6d675fd1548ae3450d6db33c"
+    }
+  ]
+}

@@ -13,9 +13,11 @@ export const style = StyleSheet.create({
     padding: 5,
   },
   rakingContainer: {
-    width: 100,
-    height: 100,
+    width: 95,
+    height: 95,
     marginRight: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   infContainer: {
     flexDirection: 'row',
@@ -34,17 +36,27 @@ export const style = StyleSheet.create({
   textInf: {
     color: '#fff',
     fontFamily: 'Roboto-Black',
+    fontSize: 12,
   },
   infCourseContainer: {
     marginRight: 10,
   },
+
   infCourse: {
     gap: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 35,
+    height: 45,
     width: '85%',
+    paddingLeft: 5,
+  },
+  textInfCourse: {
+    color: '#fff',
+    fontFamily: 'Roboto-Black',
+    fontSize: 12,
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   phaseContainer: {
     gap: 10,

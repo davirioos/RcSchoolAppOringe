@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { style } from './styles';
+import { useRegister } from '../../contexts/RegisterContext';
 import OptionList from '../../components/optionsList';
 import ProgressoAnimado from '../../components/barraProgress';
 import { RootStackParamList } from '../../routes/authRoutes';
@@ -12,6 +13,7 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'H
 export default function DailyObjectives() {
   const [disabled, setDisabled] = useState(false);
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { setRegisterData } = useRegister();
   const teste = [
     '5 minutos / dia',
     '10 minutos / dia',
@@ -20,9 +22,11 @@ export default function DailyObjectives() {
     '25 minutos / dia',
   ];
 
-  const registrationTime = (tempo: string) => {
+  const registrationTime = (option: string) => {
     if (disabled) return;
     setDisabled(true);
+    setRegisterData({ tempo: option });
+    console.log(option);
     navigation.navigate('UserRegistration');
     setTimeout(() => {
       setDisabled(false);

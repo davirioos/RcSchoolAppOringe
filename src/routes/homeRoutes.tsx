@@ -1,7 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import HomeScreenDirector from '../screens/home/studyHome/home';
 import ClassificationHome from '../screens/home/classificatioHome/ClassificationHome';
 import PracticedHome from '../screens/home/practicedHome/practicedHome';

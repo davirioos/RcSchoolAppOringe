@@ -4,9 +4,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button } from '../components/button';
 import { ButtonSecondary } from '../components/buttonSecondary';
 import { style } from './styles';
-import { RootStackParamList } from '../routes/authRoutes'; // Importa os tipos das rotas
+import { RootStackParamList } from '../routes/authRoutes';
 
-// Define o tipo correto para navegação com NativeStack
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function Index() {

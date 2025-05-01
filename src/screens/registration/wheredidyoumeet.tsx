@@ -2,6 +2,7 @@ import { View, Text, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useRegister } from '../../contexts/RegisterContext';
 import { style } from './styles';
 import OptionList from '../../components/optionsList';
 import ProgressoAnimado from '../../components/barraProgress';
@@ -14,10 +15,13 @@ export default function Wheredidyoumeet() {
 
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const teste = ['Youtube', 'Tiktok', 'Instagram', 'Facebook', 'Play Story', 'Indicação'];
+  const { setRegisterData } = useRegister();
 
-  const registrationSearch = (ondeConheceu: string) => {
+  const registrationSearch = (option: string) => {
     if (disabled) return;
     setDisabled(true);
+    setRegisterData({ ondeConheceu: option });
+    console.log('Opção escolhida:', option);
     navigation.navigate('ResearchMotivation');
     setTimeout(() => {
       setDisabled(false);
