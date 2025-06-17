@@ -1,5 +1,5 @@
 {
-  "name": "RcSchool",
+  "name": "rcschool",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -24,7 +24,8 @@
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "^4.10.0",
-    "react-native-vector-icons": "^10.2.0"
+    "react-native-vector-icons": "^10.2.0",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -50,5 +51,18 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "description": "This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davirioos/RcSchoolAppOringe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davirioos/RcSchoolAppOringe/issues"
+  },
+  "homepage": "https://github.com/davirioos/RcSchoolAppOringe#readme"
 }

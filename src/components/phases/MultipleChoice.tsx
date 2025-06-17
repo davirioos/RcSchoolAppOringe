@@ -3,24 +3,36 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-type Props = {
+type MultipleChoiceProps = {
   pergunta: string;
   opcoes: string[];
   resposta: string;
   onNext: () => void; // Função chamada para avançar para a próxima fase
+  onComplete: () => void;
 };
 
-export default function MultipleChoice({ pergunta, opcoes, resposta, onNext }: Props) {
+export default function MultipleChoice({
+  pergunta,
+  opcoes,
+  resposta,
+  onNext,
+  onComplete,
+}: MultipleChoiceProps) {
   const [selected, setSelected] = useState<string | null>(null); // Estado para a opção selecionada
 
   function handleSelect(opcao: string) {
-    setSelected(opcao); // Atualiza a opção selecionada
+    setSelected(opcao);
 
-    const isCorrect = opcao === resposta; // Verifica se a resposta está correta
+    const isCorrect = opcao === resposta;
 
-    setTimeout(() => {
-      onNext(); // Chama a função para ir para a próxima fase após 1 segundo
-    }, 1000); // Delay de 1 segundo para mostrar o feedback da resposta
+    // Apenas chame onComplete() se a resposta for correta
+    if (isCorrect) {
+      setTimeout(() => {
+        onComplete();
+      }, 1000);
+    }
+    // Se a resposta estiver errada, nada acontece,
+    // e o usuário apenas verá o feedback visual da cor vermelha.
   }
 
   return (

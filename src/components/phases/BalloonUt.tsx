@@ -1,16 +1,32 @@
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { useState, useEffect } from 'react';
+// src/components/phases/BalloonUt.tsx
 
-export default function BalloonUt() {
-  // Frase de teste, no futuro será recebida do Firebase
-  const fraseCorreta = ['I', 'am', 'happy'];
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-  // Estado para os balões e a frase montada
-  const [baloesDisponiveis, setBaloesDisponiveis] = useState(['happy', 'I', 'am']);
-  const [fraseMontada, setFraseMontada] = useState(['', '', '']);
+// 1. Definimos as props que o componente vai receber
+interface BalloonProps {
+  palavras: string[]; // As palavras embaralhadas para os balões
+  fraseCorreta: string; // A frase correta como uma string única
+  onComplete: () => void;
+}
 
-  // Função para adicionar uma palavra na frase montada
+export function BalloonUt({ palavras, fraseCorreta, onComplete }: BalloonProps) {
+  // 2. O estado é inicializado a partir das props
+  const [baloesDisponiveis, setBaloesDisponiveis] = useState(palavras);
+
+  // Cria os espaços vazios com base no número de palavras da frase correta
+  const espacosDaFrase = fraseCorreta.split(' ');
+  const [fraseMontada, setFraseMontada] = useState<string[]>(espacosDaFrase.map(() => ''));
+
+  // Estado para dar feedback visual ao usuário
+  const [statusResposta, setStatusResposta] = useState<'pendente' | 'correto' | 'errado'>(
+    'pendente',
+  );
+
+  // Função para adicionar uma palavra (lógica mantida)
   const adicionarPalavra = (palavra: string) => {
+    if (statusResposta !== 'pendente') return; // Bloqueia ações após verificação
+
     const novosBaloes = baloesDisponiveis.filter(p => p !== palavra);
     setBaloesDisponiveis(novosBaloes);
 
@@ -22,8 +38,10 @@ export default function BalloonUt() {
     }
   };
 
-  // Função para remover uma palavra da frase montada
+  // Função para remover uma palavra (lógica mantida)
   const removerPalavra = (index: number) => {
+    if (statusResposta !== 'pendente') return; // Bloqueia ações após verificação
+
     const novaFrase = [...fraseMontada];
     const palavraRemovida = novaFrase[index];
 
@@ -34,74 +52,150 @@ export default function BalloonUt() {
     }
   };
 
-  // Função para verificar a resposta
+  // 3. Função de verificação foi atualizada
   const verificarResposta = () => {
-    const respostaCorreta = fraseCorreta.join(' ');
     const respostaUsuario = fraseMontada.join(' ');
 
-    if (respostaCorreta === respostaUsuario) {
-      Alert.alert('✅ Correto!');
+    if (respostaUsuario === fraseCorreta) {
+      setStatusResposta('correto');
+      // Se a resposta estiver certa, chama onComplete após um delay
+      setTimeout(() => {
+        onComplete();
+      }, 1500);
     } else {
-      Alert.alert('❌ Errado! Tente novamente.');
+      setStatusResposta('errado');
     }
   };
 
-  // Função para resetar o exercício
-  const resetarExercicio = () => {
-    setFraseMontada(['', '', '']);
-    setBaloesDisponiveis(['happy', 'I', 'am']);
+  // Função para resetar apenas o estado interno do componente
+  const tentarNovamente = () => {
+    setStatusResposta('pendente');
+    setBaloesDisponiveis(palavras);
+    setFraseMontada(espacosDaFrase.map(() => ''));
   };
 
-  // Exemplo de uso do useEffect para buscar a frase do Firebase no futuro (comentado por enquanto)
-  // useEffect(() => {
-  //   const fetchPhrase = async () => {
-  //     // Aqui você faria a chamada ao Firebase para buscar a frase
-  //     const fetchedPhrase = ['I', 'am', 'happy']; // Isso é um exemplo
-  //     setFraseCorreta(fetchedPhrase);
-  //     setBaloesDisponiveis(fetchedPhrase.reverse()); // Exemplo de como os balões podem vir
-  //   };
-
-  //   fetchPhrase();
-  // }, []);
+  const isFraseCompleta = !fraseMontada.includes('');
 
   return (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-      <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+    <View style={styles.container}>
+      {/* Área onde a frase é montada */}
+      <View
+        style={[
+          styles.fraseContainer,
+          statusResposta === 'correto' && styles.bordaCorreta,
+          statusResposta === 'errado' && styles.bordaErrada,
+        ]}
+      >
         {fraseMontada.map((palavra, index) => (
           <TouchableOpacity
             key={index}
             onPress={() => removerPalavra(index)}
-            style={{ borderWidth: 1, padding: 10, margin: 5 }}
+            style={styles.palavraMontada}
           >
-            <Text>{palavra || '___'}</Text>
+            <Text style={styles.palavraTexto}>{palavra || ''}</Text>
           </TouchableOpacity>
         ))}
       </View>
-      {baloesDisponiveis.map((palavra, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => adicionarPalavra(palavra)}
-          style={{ padding: 10, backgroundColor: '#eee', margin: 5 }}
-        >
-          <Text>{palavra}</Text>
-        </TouchableOpacity>
-      ))}
-      {!fraseMontada.includes('') && (
-        <TouchableOpacity
-          onPress={verificarResposta}
-          style={{ backgroundColor: '#4CAF50', padding: 10, marginTop: 20, borderRadius: 10 }}
-        >
-          <Text style={{ color: '#fff', textAlign: 'center' }}>Verificar</Text>
-        </TouchableOpacity>
-      )}
-      {!fraseMontada.includes('') && (
-        <TouchableOpacity
-          onPress={resetarExercicio}
-          style={{ backgroundColor: '#f44336', padding: 10, marginTop: 10, borderRadius: 10 }}
-        >
-          <Text style={{ color: '#fff', textAlign: 'center' }}>Tentar novamente</Text>
-        </TouchableOpacity>
-      )}
+
+      {/* Área dos balões de palavras disponíveis */}
+      <View style={styles.baloesContainer}>
+        {baloesDisponiveis.map((palavra, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => adicionarPalavra(palavra)}
+            style={styles.balao}
+          >
+            <Text style={styles.palavraTexto}>{palavra}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Botões de Ação */}
+      <View style={styles.actionContainer}>
+        {isFraseCompleta && statusResposta === 'pendente' && (
+          <TouchableOpacity
+            onPress={verificarResposta}
+            style={[styles.button, styles.buttonVerificar]}
+          >
+            <Text style={styles.buttonText}>Verificar</Text>
+          </TouchableOpacity>
+        )}
+        {statusResposta === 'errado' && (
+          <TouchableOpacity
+            onPress={tentarNovamente}
+            style={[styles.button, styles.buttonTentarNovamente]}
+          >
+            <Text style={styles.buttonText}>Tentar Novamente</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 }
+
+// 4. Adicionei alguns estilos para a experiência ficar melhor
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
+  fraseContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    minHeight: 50,
+    borderBottomWidth: 2,
+    borderColor: '#e0e0e0',
+    width: '100%',
+    marginBottom: 30,
+    padding: 5,
+  },
+  bordaCorreta: {
+    borderColor: '#A8E6CF',
+  },
+  bordaErrada: {
+    borderColor: '#FF8A80',
+  },
+  palavraMontada: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    margin: 4,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+  },
+  baloesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  balao: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    margin: 5,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 20,
+  },
+  palavraTexto: {
+    fontSize: 16,
+  },
+  actionContainer: {
+    width: '100%',
+    marginTop: 30,
+  },
+  button: {
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  buttonVerificar: {
+    backgroundColor: '#4CAF50',
+  },
+  buttonTentarNovamente: {
+    backgroundColor: '#f44336',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});

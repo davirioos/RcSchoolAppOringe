@@ -1,39 +1,45 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 
-const CompleteThePhrase = () => {
-  const [input, setInput] = useState('');
-  const [phrase, setPhrase] = useState('Eu estou aprendendo');
+interface CompleteThePhraseProps {
+  frasePartes: [string, string]; // Ex: ["A maçã é ", "."]
+  palavraCorreta: string;
+  onComplete: () => void;
+}
 
-  // Função para verificar se a resposta está correta
-  const checkAnswer = () => {
-    if (input.trim().toLowerCase() === 'react native') {
-      Alert.alert('Parabéns!', 'Você completou a frase corretamente.');
+export function CompleteThePhrase({
+  frasePartes,
+  palavraCorreta,
+  onComplete,
+}: CompleteThePhraseProps) {
+  const [userInput, setUserInput] = useState('');
+
+  const handleVerification = () => {
+    // Compara a entrada do usuário (ignorando maiúsculas/minúsculas e espaços)
+    if (userInput.trim().toLowerCase() === palavraCorreta.toLowerCase()) {
+      onComplete();
     } else {
-      Alert.alert('Tente novamente', 'A resposta está incorreta. Tente novamente.');
+      Alert.alert('Resposta incorreta, tente novamente!');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Complete a frase:</Text>
-      <View style={styles.phraseContainer}>
-        <Text style={styles.phrase}>{phrase} </Text>
-        <TextInput
-          style={styles.input}
-          value={input}
-          onChangeText={setInput}
-          placeholder="_____"
-          autoCorrect={false}
-          autoCapitalize="none"
-          keyboardType="default"
-        />
-        <Text style={styles.phrase}>.</Text>
-      </View>
-      <Button title="Verificar Resposta" onPress={checkAnswer} />
+    <View>
+      <Text>
+        {frasePartes[0]}
+        <Text style={{ fontWeight: 'bold' }}>______</Text>
+        {frasePartes[1]}
+      </Text>
+      <TextInput
+        placeholder="Digite a palavra que falta"
+        value={userInput}
+        onChangeText={setUserInput}
+        style={{ borderWidth: 1, padding: 8, marginVertical: 10 }}
+      />
+      <Button title="Verificar" onPress={handleVerification} />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
