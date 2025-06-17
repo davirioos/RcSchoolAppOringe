@@ -25,20 +25,6 @@ export default function StoryHome() {
             <Text style={style.textPlanosPreco}>R$ 4,99 / Mês</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[styleGlobal.ContainerBackgroundDark, style.buttonPlanosVip]}
-          activeOpacity={0.8}
-        >
-          <View>
-            <Text style={style.textPlanosVipPrincpal}>Plano Vip</Text>
-            <Text style={style.textPlanosVip}>
-              Sem Anúncios{'\n'}Todas as vídeos aulas liberada{'\n'}Aqui você nunca fica sem vida
-            </Text>
-          </View>
-          <View style={style.textPlanosPrecoContainer}>
-            <Text style={style.textPlanosPreco}>R$ 14,99 / Mês</Text>
-          </View>
-        </TouchableOpacity>
       </View>
       <Text style={style.descricaoTextShopCancelar}>
         Você pode cancelar a qualquer momento{'\n'}na PlayStory

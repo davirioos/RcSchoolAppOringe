@@ -10,7 +10,7 @@ export const style = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 3,
     borderColor: '#BF876B',
-    padding: 5,
+    padding: 3,
   },
   rakingContainer: {
     width: 95,
@@ -58,6 +58,7 @@ export const style = StyleSheet.create({
     flexWrap: 'wrap',
     flexShrink: 1,
   },
+
   phaseContainer: {
     gap: 10,
     justifyContent: 'center',
@@ -65,5 +66,16 @@ export const style = StyleSheet.create({
   },
   containerPhaseSection: {
     marginTop: 10,
+    padding: 8,
+  },
+  modulosSecao: {
+    fontSize: 18,
+    fontFamily: 'Roboto-Bold',
+    color: '#fff',
+  },
+  descricaoInf: {
+    fontSize: 12,
+    fontFamily: 'Roboto-ligth',
+    color: '#fff',
   },
 });

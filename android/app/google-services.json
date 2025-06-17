@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1061414594985",
-    "project_id": "rcschool-a5674",
-    "storage_bucket": "rcschool-a5674.firebasestorage.app"
+    "project_number": "123857453401",
+    "project_id": "rcschool-85625",
+    "storage_bucket": "rcschool-85625.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1061414594985:android:a4945c1b847d02cdc6bcb8",
+        "mobilesdk_app_id": "1:123857453401:android:68f364139aef2cb0b2cc48",
         "android_client_info": {
           "package_name": "com.rcschool"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDXgxCpovZzwBhAnOZ0Av659I4-R4n6X2M"
+          "current_key": "AIzaSyAp8rhvfVVpyTrLunyR3xFKAmGu0ESk_ZY"
         }
       ],
       "services": {

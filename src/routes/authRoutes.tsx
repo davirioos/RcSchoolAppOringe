@@ -8,6 +8,7 @@ import ResearchMotivation from '../screens/registration/researchMotivation';
 import DailyObjectives from '../screens/registration/dailyObjectives';
 import UserRegistration from '../screens/registration/userRegistration';
 import HomeScreenDirector from '../screens/home/studyHome/home';
+import ForgotPasswordScreen from '../screens/login/forgot';
 import { RegisterProvider } from '../contexts/RegisterContext';
 
 // Definindo o tipo para as rotas
@@ -20,6 +21,7 @@ export type RootStackParamList = {
   DailyObjectives: undefined;
   UserRegistration: undefined;
   HomeScreenDirector: undefined;
+  ForgotPasswordScreen: undefined;
 };
 
 // Criando o Stack Navigator
@@ -38,6 +40,7 @@ export default function authRoutes() {
         <Stack.Screen name="DailyObjectives" component={DailyObjectives} />
         <Stack.Screen name="UserRegistration" component={UserRegistration} />
         <Stack.Screen name="HomeScreenDirector" component={HomeScreenDirector} />
+        <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
       </Stack.Navigator>
     </RegisterProvider>
   );

@@ -1,9 +1,15 @@
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { style } from './styles';
 import { styleGlobal } from '../../../styles/styleGlobal';
-import { FIREBASE_API_KEY } from '@env';
-
+import CustomAlert from '../../../components/notice/notice';
+import { useState } from 'react';
 export default function ClassificationHome() {
+  const [statusNotice, setStatusNotice] = useState<boolean>(false);
+
+  function alertNotice() {
+    setStatusNotice(true);
+  }
+
   return (
     <View style={style.directorContainer}>
       <Image
@@ -11,9 +17,16 @@ export default function ClassificationHome() {
         style={{ width: 200, height: 200 }}
       />
       <Text>Participe de nosso jogos e competições.</Text>
+      <CustomAlert
+        title="Em breve"
+        message="Fique atento! A funcionalidade estará disponível na próxima atualização."
+        visible={statusNotice}
+        onClose={() => setStatusNotice(false)}
+      />
       <TouchableOpacity
         activeOpacity={0.8}
         style={[styleGlobal.ContainerBackground, style.buttonContainer]}
+        onPress={alertNotice}
       >
         <View>
           <Image

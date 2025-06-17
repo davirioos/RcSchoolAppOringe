@@ -32,6 +32,9 @@ export default function Login() {
   const signUp = () => {
     navigation.navigate('Registration');
   };
+  const signUpForgot = () => {
+    navigation.navigate('ForgotPasswordScreen');
+  };
 
   return (
     <View style={style.container}>
@@ -69,7 +72,9 @@ export default function Login() {
         isPassword={true}
       />
       {errors.password && <Text>{(errors.password as FieldError)?.message}</Text>}
-
+      <TouchableOpacity onPress={signUpForgot}>
+        <Text style={style.textLink}>Esqueci minha Senhar</Text>
+      </TouchableOpacity>
       <Button
         title={'Entrar no App'}
         onPress={handleSubmit(registrationSearch)}
