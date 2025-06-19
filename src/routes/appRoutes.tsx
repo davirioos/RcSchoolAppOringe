@@ -1,7 +1,10 @@
+// src/routes/appRoutes.tsx
+
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ExerciseScreen from '../screens/phases/ExerciseScreen'; // Importação nomeada
-import { TabRoutes } from './tab.routes'; // Importação nomeada
+import ExerciseScreen from '../screens/phases/ExerciseScreen';
+// CORREÇÃO: Importe 'HomeTabs' de 'homeRoutes'
+import HomeTabs from './homeRoutes'; // Alterado de './tab.routes'
 
 export type AppStackParamList = {
   HomeTabs: undefined;
@@ -11,10 +14,10 @@ export type AppStackParamList = {
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 export function AppRoutes() {
-  // Alterado para exportação nomeada
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="HomeTabs" component={TabRoutes} />
+      {/* CORREÇÃO: Use o componente 'HomeTabs' importado */}
+      <Stack.Screen name="HomeTabs" component={HomeTabs} />
       <Stack.Screen name="ExerciseScreen" component={ExerciseScreen} />
     </Stack.Navigator>
   );

@@ -37,7 +37,7 @@ interface CourseState {
 const initialModules: Module[] = [
   {
     id: 1,
-    title: 'Módulo 1: Básico',
+    title: 'Módulo 1: Python básico',
     phases: [
       {
         id: 101,
