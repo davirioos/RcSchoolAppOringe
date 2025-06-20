@@ -1,6 +1,9 @@
+// src/store/courseStore.ts
+
 import { create } from 'zustand';
 import { useUserStore } from './userStore';
 
+// Interface para os dados de um único exercício
 export interface ExerciseData {
   pergunta?: string;
   opcoes?: string[];
@@ -11,13 +14,20 @@ export interface ExerciseData {
   fraseCorreta?: string;
 }
 
+// NOVO: Interface que representa um exercício individual
+export interface Exercise {
+  id: number;
+  type: 'multipleChoice' | 'completeThePhrase' | 'balloon';
+  data: ExerciseData;
+}
+
+// ATUALIZADO: A interface da Fase agora contém um array de exercícios
 export interface Phase {
   id: number;
   title: string;
   status: 'locked' | 'unlocked' | 'completed';
-  exerciseType: 'multipleChoice' | 'completeThePhrase' | 'balloon';
-  xpReward: number;
-  exerciseData: ExerciseData;
+  exercises: Exercise[]; // Alterado para uma lista de exercícios
+  xpReward: number; // XP total ganho ao completar a fase
 }
 
 export interface Module {
@@ -34,6 +44,7 @@ interface CourseState {
   completeCurrentPhase: () => void;
 }
 
+// ATUALIZADO: Dados iniciais com a nova estrutura
 const initialModules: Module[] = [
   {
     id: 1,
@@ -41,40 +52,70 @@ const initialModules: Module[] = [
     phases: [
       {
         id: 101,
-        title: 'Fase 1 - Múltipla Escolha',
+        title: 'Fase 1 - Fundamentos',
         status: 'unlocked',
-        exerciseType: 'multipleChoice',
-        xpReward: 10,
-        exerciseData: {
-          pergunta: 'Qual a tradução de "azul" em inglês?',
-          opcoes: ['Red', 'Green', 'Blue', 'Yellow'],
-          respostaCorreta: 'Blue',
-        },
+        xpReward: 50, // XP total da fase
+        exercises: [
+          // Array com 2 exercícios de exemplo (pode ter 10-15)
+          {
+            id: 1,
+            type: 'multipleChoice',
+            data: {
+              pergunta: 'Qual a tradução de "maçã"?',
+              opcoes: ['Apple', 'Banana', 'Grape'],
+              respostaCorreta: 'Apple',
+            },
+          },
+          {
+            id: 2,
+            type: 'balloon',
+            data: {
+              palavras: ['is', 'a', 'This', 'test'],
+              fraseCorreta: 'This is a test',
+            },
+          },
+          // ... você pode adicionar mais 8 a 13 exercícios aqui
+        ],
       },
       {
         id: 102,
-        title: 'Fase 2 - Complete a Frase',
+        title: 'Fase 2 - Estruturas de Dados',
         status: 'locked',
-        exerciseType: 'completeThePhrase',
-        xpReward: 15,
-        exerciseData: {
-          frasePartes: ['The sky is ', '.'],
-          palavraCorreta: 'blue',
-        },
+        xpReward: 50,
+        exercises: [
+          /* ... 10 a 15 exercícios ... */
+        ],
       },
       {
         id: 103,
-        title: 'Fase 3 - Monte a Frase',
+        title: 'Fase 3 - Funções',
         status: 'locked',
-        exerciseType: 'balloon',
-        xpReward: 20,
-        exerciseData: {
-          palavras: ['I', 'student', 'a', 'am'],
-          fraseCorreta: 'I am a student',
-        },
+        xpReward: 50,
+        exercises: [
+          /* ... 10 a 15 exercícios ... */
+        ],
+      },
+      {
+        id: 104,
+        title: 'Fase 4 - Módulos',
+        status: 'locked',
+        xpReward: 50,
+        exercises: [
+          /* ... 10 a 15 exercícios ... */
+        ],
+      },
+      {
+        id: 105,
+        title: 'Fase 5 - Projeto Prático',
+        status: 'locked',
+        xpReward: 100,
+        exercises: [
+          /* ... 10 a 15 exercícios ... */
+        ],
       },
     ],
   },
+  // ... outros módulos podem ser adicionados aqui
 ];
 
 export const useCourseStore = create<CourseState>((set, get) => ({
